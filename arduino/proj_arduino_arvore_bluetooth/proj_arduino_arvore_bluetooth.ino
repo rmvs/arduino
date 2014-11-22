@@ -1,6 +1,14 @@
 
+/** https://github.com/rmvs/arduino.git
+**
+**  @author Elano Rolim
+**  @author Felipe Feitosa
+**  @author Douglas Cunha
+**/
+
 #include <SoftwareSerial.h>
 
+// "Instancia" o módulo que manipula a comunicação serial (porta 0: RX, porta1: TX)
 SoftwareSerial con(0,1);
 String dataRead = "";
 int ledR = 11,
@@ -9,8 +17,10 @@ int ledR = 11,
 int rgb[3];
 void setup()
 {
-  
+  // Inicializa a saída serial 
   Serial.begin(9600);
+  // Inicializa a comunicação serial com o dispositivo bluetooth a 38400 bauds
+  // varia conforme o dispositivo [HC07/05]
   con.begin(38400);  
   Serial.println("Iniciado");
 }
@@ -33,7 +43,7 @@ void loop()
     }
     
     /**
-    **  Imprime na tela
+    **  Imprime na tela o input
     **/
     Serial.println(dataRead);
     /**
