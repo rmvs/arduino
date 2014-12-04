@@ -11,10 +11,14 @@
 // "Instancia" o módulo que manipula a comunicação serial (porta 0: RX, porta1: TX)
 SoftwareSerial con(0,1);
 String dataRead = "";
-int ledR = 11,
-    ledG = 12,
-    ledB = 13;
+int ledR = 8,
+    ledG = 9,
+    ledB = 10,
+    ledRV = 0,
+    ledGV = 0,
+    ledBV = 0;
 int rgb[3];
+
 void setup()
 {
   // Inicializa a saída serial 
@@ -42,36 +46,28 @@ void loop()
       dataRead += (char)con.read();
     }
     
-    /**
-    **  Imprime na tela o input
-    **/
-    Serial.println(dataRead);
+    ledRV = 255 - dataRead.substring(0,4).toInt();
+    ledGV = 255 - dataRead.substring(4,8).toInt();
+    ledBV = 255 - dataRead.substring(8,12).toInt();
+    
+    analogWrite(ledR,ledRV);
+    analogWrite(ledG,ledGV);
+    analogWrite(ledB,ledBV);
+    dataRead = "";
     /**
     **  Ascende o led RGB se a entrada for uma string numérica
     ** em formato XXXXXXXXX, três digítos da esquerda para a direita representam o padrão R G B
     **/
-    if(dataRead != "esq" || dataRead != "dir"){
-      analogWrite(ledR,255 - dataRead.substring(0,4).toInt());
+    //if(dataRead != "esq" || dataRead != "dir"){
+      /*analogWrite(ledR,255 - dataRead.substring(0,4).toInt());
       analogWrite(ledG,255 - dataRead.substring(4,8).toInt());
-      analogWrite(ledB,255 - dataRead.substring(8,12).toInt());
-    }      
+      analogWrite(ledB,255 - dataRead.substring(8,12).toInt());*/     
+      
+      /*Serial.println("Vermelho: " + String(255 - dataRead.substring(0,4).toInt()));
+      Serial.println("Verde: " + String(255 - dataRead.substring(4,8).toInt()));
+      Serial.println("Azul: " + String(255 - dataRead.substring(8,12).toInt()));*/
+    //}      
     //dataRead = "";
-  }
-  
-  /**
-    **  Se caso a interação do usuário for o comando 'esq' os leds são acesos em ordem
-    **  caso seja 'dir' a ordem é contrária
-    **/
-    for(int i = 0;i < 10;i++){  
-       if(dataRead == "esq"){
-         delay(400);
-         PORTD = 1 << i;
-       }
-       else if(dataRead == "dir"){
-         delay(400);
-         PORTD = i << (i + 9);
-       }
-    }
-    
-  delay(100);
+  }    
+  delay(300);
 }
