@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
-
+  $scope.user = {velocity:'500'};
 	$scope.cor = {valor: '#'};
 	$("#custom").spectrum({
    		color: "#f00",
@@ -24,6 +24,39 @@ angular.module('starter.controllers', [])
         $scope.enviarAlgo(str);
       }
 	});
+
+  $scope.enviarVelocidade = function(){
+    bluetoothSerial.write('V' + String($scope.user.velocity),function(){     
+    },function(){
+      alert('erro');
+    });
+  }
+
+  $scope.ascendeTodos = function(){
+    bluetoothSerial.write('all',function(){     
+    },function(){
+      alert('erro');
+    });
+  }
+
+  $scope.iluminarVermelho = function(){
+    bluetoothSerial.write('0R',function(){     
+    },function(){
+      alert('erro');
+    });
+  }
+  $scope.iluminarVerde = function(){
+    bluetoothSerial.write('0G',function(){     
+    },function(){
+      alert('erro');
+    });
+  }
+  $scope.iluminarAzul = function(){
+    bluetoothSerial.write('0B',function(){     
+    },function(){
+      alert('erro');
+    });
+  }
 
 	$scope.enviarAlgo = function(cor){
 		bluetoothSerial.write(cor,function(){			

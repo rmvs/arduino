@@ -1,11 +1,42 @@
 <ion-view title="Dashboard">
-  <ion-content class="padding">
-    <h1>Selecionar cor </h1>
-    Cor:  
-    Hex <p id="colorv"></p>
-    Dec <p id="colors"></p>
-   <div> 
-   <input type="text" id="custom" style="width:200%;height:300%" />
-   </div>   
+  <ion-content class="padding">     
+   <ul class="list">
+   	<div class="item item-divider">
+    Velocidade
+    </div>
+   	<li class="item">
+   		<input type="range" name="points" ng-model="user.velocity" min="1" max="2000"> {{user.velocity}}
+   		<button class="button button-stable" ng-click="enviarVelocidade()">
+  			enviar
+		</button>
+   	</li>
+   	<div class="item item-divider">
+      Cor
+    </div>
+    <li class="item">
+    	<div style="text-align:center">
+    		Hex <p id="colorv"></p>
+    		Dec <p id="colors"></p>   
+    		<input type="text" id="custom" style="width:400%;height:300%" />
+    	</div>
+    </li>
+    <div class="item item-divider">
+      Animação
+    </div>
+    <li class="item">
+   		<button class="button button-block button-stable" ng-click="iluminarVermelho()">
+  			<img src="img/red.png" /> 
+		</button>
+		<button class="button button-block button-stable" ng-click="iluminarVerde()">
+  			<img src="img/green.png" />
+		</button>
+		<button class="button button-block button-stable" ng-click="iluminarAzul()">
+  			<img src="img/blue.png" />
+		</button>
+		<button class="button button-block button-stable" ng-click="ascendeTodos()">
+  			piscar todos
+		</button>	
+   	</li>
+  </ul> 
   </ion-content>
 </ion-view>
